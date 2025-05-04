@@ -38,9 +38,8 @@ curl -fsSL "https://github.com/raydak-labs/configarr/archive/refs/tags/v${RELEAS
 $STD unzip -q $temp_file -d /opt/configarr
 
 msg_info "Setup ${APPLICATION}"
-mkdir -p /opt/configarr/repos
-mkdir -p /opt/configarr/templates
-touch /etc/configarr/.env
+mkdir -p /etc/configarr/repos
+mkdir -p /etc/configarr/templates
 cat <<EOF >/etc/configarr/.env
 ROOT_PATH=/opt/configarr
 CUSTOM_REPO_ROOT=/etc/configarr/repos
