@@ -40,6 +40,7 @@ $STD unzip -q $temp_file -d /opt/configarr
 msg_info "Setup ${APPLICATION}"
 mkdir -p /opt/configarr/repos
 mkdir -p /opt/configarr/templates
+touch /etc/configarr/.env
 cat <<EOF >/etc/configarr/.env
 ROOT_PATH=/opt/configarr
 CUSTOM_REPO_ROOT=/etc/configarr/repos
