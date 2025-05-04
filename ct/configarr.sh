@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 source <(curl -fsSL https://raw.githubusercontent.com/finkerle/refs/heads/configarr-new/misc/build.func)
 # Copyright (c) 2021-2025 community-scripts ORG
-# Author: [YourUserName]
+# Author: finkerle
 # License: MIT | https://github.com/community-scripts/ProxmoxVE/raw/main/LICENSE
-# Source: [SOURCE_URL]
+# Source: https://github.com/raydak-labs/configarr
 
-APP="$APP"
+APP="Configarr"
 var_tags="arr"
 var_cpu="1"
 var_ram="512"
@@ -24,23 +24,20 @@ function update_script() {
     check_container_storage
     check_container_resources
 
-    # Check if installation is present | -f for file, -d for folder
     if [[ ! -d /opt/configarr ]]; then
         msg_error "No ${APP} Installation Found!"
         exit
     fi
 
-    # Crawling the new version and checking whether an update is required
     RELEASE=$(curl -fsSL https://api.github.com/repos/raydak-labs/configarr/releases/latest | grep "tag_name" | awk '{print substr($2, 3, length($2)-4) }')
 
     if [[ "${RELEASE}" != "$(cat /opt/configarr_version.txt)" ]] || [[ ! -f /opt/configarr_version.txt ]]; then
-        # Stopping Services
+
         msg_info "Stopping $APP"
         systemctl stop configarr-task.timer
         systemctl stop configarr-task.service
         msg_ok "Stopped $APP"
 
-        # Execute Update
         msg_info "Updating $APP to v${RELEASE}"
         temp_file=$(mktemp)
         curl -fsSL "https://github.com/raydak-labs/configarr/archive/refs/tags/v${RELEASE}.zip" -o $temp_file
@@ -52,13 +49,11 @@ function update_script() {
         pnpm run build
         msg_ok "Updated $APP to v${RELEASE}"
 
-        # Starting Services
         msg_info "Starting $APP"
         systemctl start configarr-task.timer
         systemctl start configarr-task.service
         msg_ok "Started configarr"
 
-        # Last Action
         echo "${RELEASE}" >/opt/configarr_version.txt
         msg_ok "Update Successful"
     else
