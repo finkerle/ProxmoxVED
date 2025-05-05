@@ -52,7 +52,7 @@ SECRETS_LOCATION=/etc/configarr/secrets.yml
 #LOG_LEVEL=info
 EOF
 mv /opt/configarr/secrets.yml.template /etc/configarr/secrets.yml
-$STD sed 's|#localConfigTemplatesPath: /app/templates|#localConfigTemplatesPath: /opt/configarr/templates|' config.yml.template >/etc/configarr/config.yml
+sed 's|#localConfigTemplatesPath: /app/templates|#localConfigTemplatesPath: /opt/configarr/templates|' config.yml.template >/etc/configarr/config.yml
 cd /opt/configarr
 $STD pnpm install
 $STD pnpm run build
