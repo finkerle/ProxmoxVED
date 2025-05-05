@@ -35,7 +35,8 @@ msg_info "Installing Configarr"
 temp_file=$(mktemp)
 RELEASE=$(curl -fsSL https://api.github.com/repos/raydak-labs/configarr/releases/latest | grep "tag_name" | awk '{print substr($2, 3, length($2)-4) }')
 curl -fsSL "https://github.com/raydak-labs/configarr/archive/refs/tags/v${RELEASE}.zip" -o $temp_file
-$STD unzip -q $temp_file -d /opt/configarr
+$STD unzip -q $temp_file -d /opt
+$STD mv /opt/configarr-${RELEASE} /opt/configarr
 
 msg_info "Setup ${APPLICATION}"
 mkdir -p /etc/configarr/repos
