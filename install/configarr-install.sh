@@ -87,7 +87,7 @@ WantedBy=timers.target
 
 EOF
 systemctl enable -q --now configarr-task.timer
-systemctl enable -q --now configarr-task.service
+#systemctl enable -q --now configarr-task.service
 msg_ok "Created Service"
 
 motd_ssh
