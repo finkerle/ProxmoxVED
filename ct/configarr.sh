@@ -35,17 +35,15 @@ function update_script() {
 
         msg_info "Stopping $APP"
         systemctl stop configarr-task.timer
-        systemctl stop configarr-task.service
         msg_ok "Stopped $APP"
 
         msg_info "Updating $APP to v${RELEASE}"
-        temp_file=$(mktemp)
-        curl -fsSL "https://github.com/raydak-labs/configarr/archive/refs/tags/v${RELEASE}.zip" -o $temp_file
-        unzip -q $temp_file
-        mv /opt/configarr/config.yml /etc/configarr/config.yml
+        temp_dir=$(mktemp -d)
+        curl -fsSL "https://github.com/raydak-labs/configarr/archive/refs/tags/v${RELEASE}.zip" -o "${temp_dir}/v${RELEASE}.zip"
+        unzip -q "${temp_dir}/v${RELEASE}.zip" -d $temp_dir
+        mv /opt/configarr/{config.yml,secrets.yml,.env} "${temp_dir}/configarr-${RELEASE}/"
         rm -rf /opt/configarr
-        mv "configarr-${RELEASE}/" /opt/configarr
-        mv /etc/configarr/config.yml /opt/configarr/config.yml
+        mv "${temp_dir}/configarr-${RELEASE}" "/opt/configarr"
         cd /opt/configarr
         pnpm install
         pnpm run build
