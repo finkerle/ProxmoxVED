@@ -52,7 +52,7 @@ SECRETS_LOCATION=/etc/configarr/secrets.yml
 #LOG_LEVEL=info
 EOF
 mv /opt/configarr/secrets.yml.template /etc/configarr/secrets.yml
-sed 's|#localConfigTemplatesPath: /app/templates|#localConfigTemplatesPath: /opt/configarr/templates|' /opt/configarr/config.yml.template >/etc/configarr/config.yml
+sed 's|#localConfigTemplatesPath: /app/templates|#localConfigTemplatesPath: /opt/configarr/templates|' /opt/configarr/config.yml.template >/opt/configarr/config.yml
 cd /opt/configarr
 pnpm install
 pnpm run build
@@ -87,7 +87,6 @@ WantedBy=timers.target
 
 EOF
 systemctl enable -q --now configarr-task.timer
-#systemctl enable -q --now configarr-task.service
 msg_ok "Created Service"
 
 motd_ssh

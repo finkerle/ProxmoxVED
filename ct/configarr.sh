@@ -42,8 +42,10 @@ function update_script() {
         temp_file=$(mktemp)
         curl -fsSL "https://github.com/raydak-labs/configarr/archive/refs/tags/v${RELEASE}.zip" -o $temp_file
         unzip -q $temp_file
+        mv /opt/configarr/config.yml /etc/configarr/config.yml
         rm -rf /opt/configarr
         mv "configarr-${RELEASE}/" /opt/configarr
+        mv /etc/configarr/config.yml /opt/configarr/config.yml
         cd /opt/configarr
         pnpm install
         pnpm run build
@@ -51,7 +53,6 @@ function update_script() {
 
         msg_info "Starting $APP"
         systemctl start configarr-task.timer
-        systemctl start configarr-task.service
         msg_ok "Started configarr"
 
         echo "${RELEASE}" >/opt/configarr_version.txt

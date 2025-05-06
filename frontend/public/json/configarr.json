@@ -4,14 +4,14 @@
     "categories": [
         14
     ],
-    "date_created": "",
+    "date_created": "2025-05-06",
     "type": "ct",
     "updateable": true,
     "privileged": false,
     "interface_port": null,
-    "documentation": null,
-    "config_path": "",
-    "website": null,
+    "documentation": "https://configarr.raydak.de/docs/intro",
+    "config_path": "/opt/configarr/config.yml",
+    "website": "https://configarr.raydak.de/",
     "logo": "https://community-scripts.github.io/ProxmoxVE",
     "description": "Configarr is an open-source tool designed to simplify configuration and synchronization for Sonarr and Radarr (and other experimental). It integrates with TRaSH Guides to automate updates of custom formats, quality profiles, and other settings, while also supporting user-defined configurations.",
     "install_methods": [
@@ -33,7 +33,11 @@
     },
     "notes": [
         {
-            "text": "change /opt/configarr/config.yml change /opt/configarr/.env change /opt/configarr/secrets.yml",
+            "text": "change config file /opt/configarr/config.yml",
+            "type": "info"
+        },
+        {
+            "text": "change secrets file /etc/configarr/secrets.yml",
             "type": "info"
         }
     ]
