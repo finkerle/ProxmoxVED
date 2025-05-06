@@ -37,7 +37,7 @@
             "type": "info"
         },
         {
-            "text": "change secrets file /etc/configarr/secrets.yml",
+            "text": "change secrets file /opt/configarr/secrets.yml",
             "type": "info"
         }
     ]
